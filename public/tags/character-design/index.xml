@@ -9,16 +9,26 @@
     <managingEditor>tfong@seas.upenn.edu (T Fong)</managingEditor>
     <webMaster>tfong@seas.upenn.edu (T Fong)</webMaster>
     <copyright>© Thomas Fong 2026</copyright>
-    <lastBuildDate>Tue, 07 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/tags/character-design/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/tags/character-design/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Lilith: Fighting Game Character</title>
+      <link>//localhost:1313/lilith_anims/</link>
+      <pubDate>Sat, 08 Nov 2025 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/lilith_anims/</guid>
+      <description>Lilith, a playable character in a 3D fighting game</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/lilith_anims/featured.png" />
+    </item>
     
     <item>
       <title>Live2D Interactive Avatar</title>
-      <link>//localhost:1313/lilith_anims/</link>
+      <link>//localhost:1313/live2d_model/</link>
       <pubDate>Tue, 07 Jan 2025 00:00:00 +0000</pubDate>
       <author>tfong@seas.upenn.edu (T Fong)</author>
-      <guid>//localhost:1313/lilith_anims/</guid>
+      <guid>//localhost:1313/live2d_model/</guid>
       <description>An interactive avatar rigged using Live2D</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/lilith_anims/featured.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/live2d_model/featured.png" />
     </item>
     
   </channel>

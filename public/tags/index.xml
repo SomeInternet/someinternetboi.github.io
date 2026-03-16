@@ -9,12 +9,12 @@
     <managingEditor>tfong@seas.upenn.edu (T Fong)</managingEditor>
     <webMaster>tfong@seas.upenn.edu (T Fong)</webMaster>
     <copyright>© Thomas Fong 2026</copyright>
-    <lastBuildDate>Mon, 08 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>C&#43;&#43;</title>
       <link>//localhost:1313/tags/c&#43;&#43;/</link>
-      <pubDate>Mon, 08 Dec 2025 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 14 Mar 2026 00:00:00 +0000</pubDate>
       <author>tfong@seas.upenn.edu (T Fong)</author>
       <guid>//localhost:1313/tags/c&#43;&#43;/</guid>
       <description></description>
@@ -22,11 +22,61 @@
     </item>
     
     <item>
+      <title>Global Illumination</title>
+      <link>//localhost:1313/tags/global-illumination/</link>
+      <pubDate>Sat, 14 Mar 2026 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/tags/global-illumination/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
       <title>GLSL</title>
       <link>//localhost:1313/tags/glsl/</link>
-      <pubDate>Mon, 08 Dec 2025 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 14 Mar 2026 00:00:00 +0000</pubDate>
       <author>tfong@seas.upenn.edu (T Fong)</author>
       <guid>//localhost:1313/tags/glsl/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>OpenGL</title>
+      <link>//localhost:1313/tags/opengl/</link>
+      <pubDate>Sat, 14 Mar 2026 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/tags/opengl/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>PBR</title>
+      <link>//localhost:1313/tags/pbr/</link>
+      <pubDate>Sat, 14 Mar 2026 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/tags/pbr/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Real-Time</title>
+      <link>//localhost:1313/tags/real-time/</link>
+      <pubDate>Sat, 14 Mar 2026 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/tags/real-time/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Technical</title>
+      <link>//localhost:1313/tags/technical/</link>
+      <pubDate>Sat, 14 Mar 2026 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/tags/technical/</guid>
       <description></description>
       
     </item>
@@ -37,36 +87,6 @@
       <pubDate>Mon, 08 Dec 2025 00:00:00 +0000</pubDate>
       <author>tfong@seas.upenn.edu (T Fong)</author>
       <guid>//localhost:1313/tags/minecraft/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>OpenGL</title>
-      <link>//localhost:1313/tags/opengl/</link>
-      <pubDate>Mon, 08 Dec 2025 00:00:00 +0000</pubDate>
-      <author>tfong@seas.upenn.edu (T Fong)</author>
-      <guid>//localhost:1313/tags/opengl/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Real-Time</title>
-      <link>//localhost:1313/tags/real-time/</link>
-      <pubDate>Mon, 08 Dec 2025 00:00:00 +0000</pubDate>
-      <author>tfong@seas.upenn.edu (T Fong)</author>
-      <guid>//localhost:1313/tags/real-time/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Technical</title>
-      <link>//localhost:1313/tags/technical/</link>
-      <pubDate>Mon, 08 Dec 2025 00:00:00 +0000</pubDate>
-      <author>tfong@seas.upenn.edu (T Fong)</author>
-      <guid>//localhost:1313/tags/technical/</guid>
       <description></description>
       
     </item>
@@ -177,6 +197,16 @@
       <pubDate>Tue, 07 Jan 2025 00:00:00 +0000</pubDate>
       <author>tfong@seas.upenn.edu (T Fong)</author>
       <guid>//localhost:1313/tags/live2d/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Pathtracer</title>
+      <link>//localhost:1313/tags/pathtracer/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/tags/pathtracer/</guid>
       <description></description>
       
     </item>

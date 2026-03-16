@@ -13,12 +13,12 @@
     
     <item>
       <title>Live2D Interactive Avatar</title>
-      <link>//localhost:1313/lilith_anims/</link>
+      <link>//localhost:1313/live2d_model/</link>
       <pubDate>Tue, 07 Jan 2025 00:00:00 +0000</pubDate>
       <author>tfong@seas.upenn.edu (T Fong)</author>
-      <guid>//localhost:1313/lilith_anims/</guid>
+      <guid>//localhost:1313/live2d_model/</guid>
       <description>An interactive avatar rigged using Live2D</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/lilith_anims/featured.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/live2d_model/featured.png" />
     </item>
     
   </channel>
