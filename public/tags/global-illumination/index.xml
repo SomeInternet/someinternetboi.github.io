@@ -8,17 +8,17 @@
     <language>en</language>
     <managingEditor>tfong@seas.upenn.edu (T Fong)</managingEditor>
     <webMaster>tfong@seas.upenn.edu (T Fong)</webMaster>
-    <copyright>© Thomas Fong 2026</copyright>
+    <copyright>© 2026 T Fong</copyright>
     <lastBuildDate>Sat, 14 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/tags/global-illumination/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>OpenGL Monte Carlo Pathtracer</title>
-      <link>//localhost:1313/opengl_pathtracer/</link>
+      <link>//localhost:1313/technical/opengl_pathtracer/</link>
       <pubDate>Sat, 14 Mar 2026 00:00:00 +0000</pubDate>
       <author>tfong@seas.upenn.edu (T Fong)</author>
-      <guid>//localhost:1313/opengl_pathtracer/</guid>
+      <guid>//localhost:1313/technical/opengl_pathtracer/</guid>
       <description>An OpenGL GLSL Monte Carlo Pathtracer featuring diffuse and specular reflective and transmissive materials, compound BSDFs (e.g. glass), multiple importance sampling (MIS), and depth of field via thin lens approximation.</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/opengl_pathtracer/featured.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/technical/opengl_pathtracer/featured.png" />
     </item>
     
   </channel>

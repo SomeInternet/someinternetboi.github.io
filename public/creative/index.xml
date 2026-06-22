@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Creative on T Fong</title>
+    <link>//localhost:1313/creative/</link>
+    <description>Recent content in Creative on T Fong</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>tfong@seas.upenn.edu (T Fong)</managingEditor>
+    <webMaster>tfong@seas.upenn.edu (T Fong)</webMaster>
+    <copyright>© 2026 T Fong</copyright>
+    <lastBuildDate>Sat, 08 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/creative/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Lilith: Fighting Game Character</title>
+      <link>//localhost:1313/creative/lilith_anims/</link>
+      <pubDate>Sat, 08 Nov 2025 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/creative/lilith_anims/</guid>
+      <description>Lilith, a playable character in a 3D fighting game</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/creative/lilith_anims/featured.png" />
+    </item>
+    
+    <item>
+      <title>Vortex: Animated 2D/3D Music Video</title>
+      <link>//localhost:1313/creative/vortex/</link>
+      <pubDate>Mon, 28 Apr 2025 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/creative/vortex/</guid>
+      <description>My cut from a mixed 2D/3D music video adapting Vortex.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/creative/vortex/featured.png" />
+    </item>
+    
+    <item>
+      <title>Live2D Interactive Avatar</title>
+      <link>//localhost:1313/creative/live2d_model/</link>
+      <pubDate>Tue, 07 Jan 2025 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/creative/live2d_model/</guid>
+      <description>An interactive avatar rigged using Live2D</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/creative/live2d_model/featured.png" />
+    </item>
+    
+  </channel>
+</rss>

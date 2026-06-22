@@ -2,7 +2,7 @@
 title: "Mesh Editor"
 date: 2025-10-31
 draft: false
-summary: "My cut from a mixed 2D/3D music video adapting Vortex."
+summary: "A C++ OpenGL mini mesh-editor implementing the half-edge data structure representation of meshes, with Catmull-Clark subdivision."
 tags: ["technical", "C++", "OpenGL", "GLSL", "real-time"]
 type: ["technical", "post"]
 ---

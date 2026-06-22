@@ -3,7 +3,7 @@ title: "OpenGL Monte Carlo Pathtracer"
 date: 2026-03-14
 draft: false
 summary: "An OpenGL GLSL Monte Carlo Pathtracer featuring diffuse and specular reflective and transmissive materials, compound BSDFs (e.g. glass), multiple importance sampling (MIS), and depth of field via thin lens approximation."
-tags: ["technical", "C++", "real-time", "PBR", "OpenGL", "GLSL", "Global Illumination"]
+tags: ["technical", "C++", "PBR", "OpenGL", "GLSL", "Global Illumination"]
 type: ["technical", "post"]
 ---
 ***Since this was coursework, I can't make the project code public. Please reach out privately if interested!***

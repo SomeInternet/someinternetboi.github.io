@@ -21,8 +21,8 @@
   weight = 15
 
 [[main]]
-  name = "Art"
-  pageRef = "art"
+  name = "Creative"
+  pageRef = "creative"
   weight = 20
 
 #[[main]]
@@ -38,9 +38,9 @@
   weight = 10
 
 [[subnavigation]]
-  name = "SomeInternetBoi"
+  name = "SomeInternet"
   pre = "github"
-  url = "https://github.com/SomeInternetBoi"
+  url = "https://github.com/SomeInternet"
   weight = 20
 
 #[[main]]
