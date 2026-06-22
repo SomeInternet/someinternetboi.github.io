@@ -1,6 +1,6 @@
 ---
 title: "Physically-Based Deferred Renderer"
-date: 2026-03-14
+date: 2026-04-15
 draft: false
 summary: "A physically-based deferred renderer in OpenGL and GLSL, with diffuse and glossy convolution for environment map reflections on materials with roughness and metallic factors, and deferred rendering for screen space reflections"
 tags: ["technical", "C++", "real-time", "PBR", "OpenGL", "GLSL"]
