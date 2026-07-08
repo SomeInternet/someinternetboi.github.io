@@ -3,7 +3,7 @@ title: "Tsuki Engine: Vulkan-CUDA Interop Render Engine"
 date: 2026-06-28
 draft: false
 summary: "A Vulkan-CUDA interop render engine with a real-time Vulkan viewport and a pathtraced CUDA view, with support for glTF files and physically-based materials"
-tags: ["technical", "C++", "real-time", "Vulkan", "CUDA", "Slang", "Global Illumination"]
+tags: ["technical", "C++", "real-time", "Vulkan", "CUDA", "Slang", "PBR", "Global Illumination"]
 type: ["technical", "post"]
 ---
 ***Check out the repository for this project [here](https://github.com/SomeInternet/Tsuki-Engine)!***
@@ -11,7 +11,7 @@ type: ["technical", "post"]
 
 # About
 The Tsuki Engine is a Vulkan-CUDA interop render engine with a real-time Vulkan viewport and a Monte Carlo pathtraced CUDA view, made from scratch in C++, CUDA, and Slang. It supports glTF loading with physically-based materials, creating top-level and bottom-level acceleration structures on the host before uploading them to the device.
-{{<youtubeLite id="IGMY05s6v9Y" label="Demo">}}
+{{<youtubeLite id="1i6ZCljDKFo" label="Demo">}}
 
 # Features
 ## Vulkan-CUDA Interop

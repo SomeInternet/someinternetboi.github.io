@@ -32,6 +32,16 @@
     </item>
     
     <item>
+      <title>Global Illumination</title>
+      <link>//localhost:1313/tags/global-illumination/</link>
+      <pubDate>Sun, 28 Jun 2026 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/tags/global-illumination/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
       <title>Real-Time</title>
       <link>//localhost:1313/tags/real-time/</link>
       <pubDate>Sun, 28 Jun 2026 00:00:00 +0000</pubDate>
@@ -97,16 +107,6 @@
       <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
       <author>tfong@seas.upenn.edu (T Fong)</author>
       <guid>//localhost:1313/tags/pbr/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Global Illumination</title>
-      <link>//localhost:1313/tags/global-illumination/</link>
-      <pubDate>Sat, 14 Mar 2026 00:00:00 +0000</pubDate>
-      <author>tfong@seas.upenn.edu (T Fong)</author>
-      <guid>//localhost:1313/tags/global-illumination/</guid>
       <description></description>
       
     </item>
