@@ -9,7 +9,27 @@
     <managingEditor>tfong@seas.upenn.edu (T Fong)</managingEditor>
     <webMaster>tfong@seas.upenn.edu (T Fong)</webMaster>
     <copyright>© 2026 T Fong</copyright>
-    <lastBuildDate>Sat, 14 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/tags/technical/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 28 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/tags/technical/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Tsuki Engine: A Vulkan-CUDA Interop Render Engine</title>
+      <link>//localhost:1313/technical/vulkan-cuda-pathtracer/</link>
+      <pubDate>Sun, 28 Jun 2026 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/technical/vulkan-cuda-pathtracer/</guid>
+      <description>A Vulkan-CUDA interop render engine with a real-time Vulkan viewport and a pathtraced CUDA view, with support for glTF files and physically-based materials</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/technical/vulkan-cuda-pathtracer/featured.png" />
+    </item>
+    
+    <item>
+      <title>Physically-Based Deferred Renderer</title>
+      <link>//localhost:1313/technical/pbr_deferred_renderer/</link>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/technical/pbr_deferred_renderer/</guid>
+      <description>A physically-based deferred renderer in OpenGL and GLSL, with diffuse and glossy convolution for environment map reflections on materials with roughness and metallic factors, and deferred rendering for screen space reflections</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/technical/pbr_deferred_renderer/featured.png" />
+    </item>
     
     <item>
       <title>OpenGL Monte Carlo Pathtracer</title>
@@ -19,16 +39,6 @@
       <guid>//localhost:1313/technical/opengl_pathtracer/</guid>
       <description>An OpenGL GLSL Monte Carlo Pathtracer featuring diffuse and specular reflective and transmissive materials, compound BSDFs (e.g. glass), multiple importance sampling (MIS), and depth of field via thin lens approximation.</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/technical/opengl_pathtracer/featured.png" />
-    </item>
-    
-    <item>
-      <title>Physically-Based Deferred Renderer</title>
-      <link>//localhost:1313/technical/pbr_deferred_renderer/</link>
-      <pubDate>Sat, 14 Mar 2026 00:00:00 +0000</pubDate>
-      <author>tfong@seas.upenn.edu (T Fong)</author>
-      <guid>//localhost:1313/technical/pbr_deferred_renderer/</guid>
-      <description>A physically-based deferred renderer in OpenGL and GLSL, with diffuse and glossy convolution for environment map reflections on materials with roughness and metallic factors, and deferred rendering for screen space reflections</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/technical/pbr_deferred_renderer/featured.png" />
     </item>
     
     <item>

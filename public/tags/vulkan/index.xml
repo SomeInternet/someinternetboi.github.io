@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vulkan on T Fong</title>
+    <link>//localhost:1313/tags/vulkan/</link>
+    <description>Recent content in Vulkan on T Fong</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>tfong@seas.upenn.edu (T Fong)</managingEditor>
+    <webMaster>tfong@seas.upenn.edu (T Fong)</webMaster>
+    <copyright>© 2026 T Fong</copyright>
+    <lastBuildDate>Sun, 28 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/tags/vulkan/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Tsuki Engine: A Vulkan-CUDA Interop Render Engine</title>
+      <link>//localhost:1313/technical/vulkan-cuda-pathtracer/</link>
+      <pubDate>Sun, 28 Jun 2026 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/technical/vulkan-cuda-pathtracer/</guid>
+      <description>A Vulkan-CUDA interop render engine with a real-time Vulkan viewport and a pathtraced CUDA view, with support for glTF files and physically-based materials</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/technical/vulkan-cuda-pathtracer/featured.png" />
+    </item>
+    
+  </channel>
+</rss>
