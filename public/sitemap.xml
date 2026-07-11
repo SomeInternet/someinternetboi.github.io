@@ -21,6 +21,12 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>//localhost:1313/technical/gpu_boids/</loc>
+    <lastmod>2026-06-04T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>//localhost:1313/technical/pbr_deferred_renderer/</loc>
     <lastmod>2026-04-15T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>

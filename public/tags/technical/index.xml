@@ -22,6 +22,16 @@
     </item>
     
     <item>
+      <title>GPU Boids Flocking Particle Simulator</title>
+      <link>//localhost:1313/technical/gpu_boids/</link>
+      <pubDate>Thu, 04 Jun 2026 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/technical/gpu_boids/</guid>
+      <description>A GPU Boids Flocking Particle Simulator written in CUDA.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/technical/gpu_boids/featured.png" />
+    </item>
+    
+    <item>
       <title>Physically-Based Deferred Renderer</title>
       <link>//localhost:1313/technical/pbr_deferred_renderer/</link>
       <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>

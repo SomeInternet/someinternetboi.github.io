@@ -25,7 +25,7 @@ Physically based microfacet materials via Cook-Torrance and GGX. This example re
 As an optimization, I VNDF-sampled (visible normal distribution function) the micronormal `wh`, which selects micronormal directions the camera can actually see. I importance sampled the glossy and diffuse lobes based on how metallic the material is.
 ![Cook Torrance](images/cook-torrance.png)
 
-To make rendering complex models feasible, I implemented a 2-tier acceleration structure, with bottom-level and top-level acceleration structures. The top-level acceleration structure is created by using the equal primitive heuristic on the AABB's (axis-aligned bounding boxes) of the bottom-level acceleration structures, where the bottom-level acceleration structures are created using the surface area heuristic.
+To make rendering complex models feasible, I implemented a 2-tier acceleration structure, with bottom-level and top-level acceleration structures. The top-level acceleration structure is created by using the equal primitive heuristic on the AABB's (axis-aligned bounding boxes) of the bottom-level acceleration structures, where the bottom-level acceleration structures are created using the surface area heuristic. All acceleration structures are created on the host, before being copied into device memory.
 
 ## Vulkan Viewport
 The objects are loaded into a scenegraph structure, based on VkGuide's Vulkan engine. The TLAS is created when the scenegraph is queued for drawing. As my pathtracer uses a material lookup system, I opted to use a bindless rendering system where vertices store their own material ID's, and the fragment shader looks up material properties. I provide an option in the GUI to visualize the bottom-level acceleration structures:
