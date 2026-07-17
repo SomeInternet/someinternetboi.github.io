@@ -1,7 +1,7 @@
 ---
 title: "GPU Boids Flocking Particle Simulator"
 date: 2026-06-04
-draft: true
+draft: false
 summary: "A GPU Boids Flocking Particle Simulator written in CUDA."
 tags: ["technical", "C++", "CUDA", "real-time"]
 type: ["technical", "post"]
