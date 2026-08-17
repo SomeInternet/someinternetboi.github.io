@@ -9,7 +9,7 @@
     <managingEditor>tfong@seas.upenn.edu (T Fong)</managingEditor>
     <webMaster>tfong@seas.upenn.edu (T Fong)</webMaster>
     <copyright>© 2026 T Fong</copyright>
-    <lastBuildDate>Sun, 28 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/technical/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:1313/technical/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Tsuki Engine: Vulkan-CUDA Interop Render Engine</title>
@@ -19,6 +19,16 @@
       <guid>//localhost:1313/technical/vulkan-cuda-pathtracer/</guid>
       <description>A Vulkan-CUDA interop render engine with a real-time Vulkan viewport and a pathtraced CUDA view, with support for glTF files and physically-based materials</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/technical/vulkan-cuda-pathtracer/featured.png" />
+    </item>
+    
+    <item>
+      <title>GPU Boids Flocking Particle Simulator</title>
+      <link>//localhost:1313/technical/gpu_boids/</link>
+      <pubDate>Thu, 04 Jun 2026 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/technical/gpu_boids/</guid>
+      <description>A GPU Boids Flocking Particle Simulator written in CUDA.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/technical/gpu_boids/featured.png" />
     </item>
     
     <item>

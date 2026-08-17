@@ -1,0 +1,38 @@
+{{ define "main" }}
+{{ $pdf := "resume.pdf" | relURL }}
+{{ with .Resources.GetMatch "resume.pdf" }}{{ $pdf = .RelPermalink }}{{ end }}
+<article class="max-w-full">
+  <header class="mb-6 flex flex-wrap items-center justify-between gap-4">
+    <h1 class="text-3xl font-extrabold text-neutral-800 dark:text-neutral-100">
+      {{ .Title }}
+    </h1>
+    <div class="flex flex-wrap gap-3 text-sm">
+      <a
+        href="{{ $pdf }}"
+        download
+        class="inline-flex items-center rounded-md bg-primary-600 px-4 py-2 font-medium text-neutral-100 no-underline transition hover:bg-primary-500 dark:bg-primary-700 dark:hover:bg-primary-600">
+        Download PDF
+      </a>
+      <a
+        href="{{ $pdf }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center rounded-md border border-neutral-300 px-4 py-2 font-medium text-neutral-700 no-underline transition hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700">
+        Open in new tab
+      </a>
+    </div>
+  </header>
+
+  <div class="w-full overflow-hidden rounded-lg border border-neutral-200 shadow-sm dark:border-neutral-700" style="height: 85vh;">
+    <object data="{{ $pdf }}#view=FitH" type="application/pdf" class="h-full w-full">
+      <iframe src="{{ $pdf }}#view=FitH" class="h-full w-full" title="{{ .Title }}"></iframe>
+      <div class="flex h-full w-full items-center justify-center p-6 text-center">
+        <p>
+          Your browser can't display the embedded PDF.
+          <a href="{{ $pdf }}" class="underline">Download the resume here.</a>
+        </p>
+      </div>
+    </object>
+  </div>
+</article>
+{{ end }}

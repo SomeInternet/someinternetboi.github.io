@@ -1,6 +1,6 @@
 <!doctype html>
 <html
-  lang="{{ with site.Params.isoCode | default (site.LanguageCode | default `en`) }}{{- . -}}{{ end }}"
+  lang="{{ with site.Params.isoCode | default (site.Language.Locale | default `en`) }}{{- . -}}{{ end }}"
   dir="{{ cond (site.Params.rtl | default false) `rtl` `ltr` }}"
   class="scroll-smooth"
   data-default-appearance="{{ site.Params.defaultAppearance | default `light` }}"
@@ -26,7 +26,6 @@
     {{ else }}
       {{ partial "header/basic.html" . }}
     {{ end }}
-    {{- partial "status-bar.html" . -}}
     <div class="relative flex flex-col grow">
       <main id="main-content" class="grow">
         {{ block "main" . }}{{ end }}

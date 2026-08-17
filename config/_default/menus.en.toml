@@ -12,7 +12,7 @@
 
 [[main]]
   name = "Resume"
-  url = "https://drive.google.com/file/d/1Q-ZCmxVXEZGLletjirtLR0FtNDX89gpa/view?usp=sharing"
+  pageRef = "resume"
   weight = 10
 
 [[main]]
