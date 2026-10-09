@@ -9,7 +9,17 @@
     <managingEditor>tfong@seas.upenn.edu (T Fong)</managingEditor>
     <webMaster>tfong@seas.upenn.edu (T Fong)</webMaster>
     <copyright>© 2026 T Fong</copyright>
-    <lastBuildDate>Sun, 28 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/tags/global-illumination/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 09 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/tags/global-illumination/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Mangetsu Engine: Vulkan Hardware Ray Traced Pathtracer</title>
+      <link>//localhost:1313/technical/vulkan-rt-pathtracer/</link>
+      <pubDate>Fri, 09 Oct 2026 00:00:00 +0000</pubDate>
+      <author>tfong@seas.upenn.edu (T Fong)</author>
+      <guid>//localhost:1313/technical/vulkan-rt-pathtracer/</guid>
+      <description>A hardware-accelerated Monte Carlo pathtracer in C++, Vulkan RT, and Slang, with glTF scene loading, a physically-based BSDF with refraction, depth of field, normal mapping, and image-based lighting</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/technical/vulkan-rt-pathtracer/featured.jpg" />
+    </item>
     
     <item>
       <title>Tsuki Engine: Vulkan-CUDA Interop Render Engine</title>

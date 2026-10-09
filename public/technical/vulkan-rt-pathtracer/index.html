@@ -1,0 +1,1574 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
+  data-auto-appearance="true"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  
+    <meta http-equiv="content-language" content="en">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color">
+
+  
+  
+    <title>Mangetsu Engine: Vulkan Hardware Ray Traced Pathtracer &middot; T Fong</title>
+    <meta name="title" content="Mangetsu Engine: Vulkan Hardware Ray Traced Pathtracer &middot; T Fong">
+  
+
+  
+  
+  
+  
+  
+    
+  
+    
+  
+    
+  
+  
+    <meta name="description" content="A hardware-accelerated Monte Carlo pathtracer in C&#43;&#43;, Vulkan RT, and Slang, with glTF scene loading, a physically-based BSDF with refraction, depth of field, normal mapping, and image-based lighting">
+  
+  
+    <meta name="keywords" content="technical,C&#43;&#43;,real-time,Vulkan,Slang,PBR,Global Illumination,">
+  
+  
+  
+  <link rel="canonical" href="//localhost:1313/technical/vulkan-rt-pathtracer/">
+  
+  
+
+  
+  
+    <meta name="author" content="T Fong">
+  
+  
+    
+      
+        
+      
+    
+      
+        
+          <link href="https://github.com/SomeInternet" rel="me">
+        
+      
+    
+      
+        
+          <link href="https://instagram.com/tsukifong" rel="me">
+        
+      
+    
+      
+        
+          <link href="https://linkedin.com/in/tzfong" rel="me">
+        
+      
+    
+  
+
+  
+  <meta property="og:url" content="//localhost:1313/technical/vulkan-rt-pathtracer/">
+	<meta property="og:site_name" content="T Fong">
+	<meta property="og:title" content="Mangetsu Engine: Vulkan Hardware Ray Traced Pathtracer">
+	<meta property="og:description" content="A hardware-accelerated Monte Carlo pathtracer in C&#43;&#43;, Vulkan RT, and Slang, with glTF scene loading, a physically-based BSDF with refraction, depth of field, normal mapping, and image-based lighting">
+	<meta property="og:locale" content="en">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="technical">
+		<meta property="article:published_time" content="2026-10-09T00:00:00+00:00">
+		<meta property="article:modified_time" content="2026-10-09T00:00:00+00:00">
+		<meta property="article:tag" content="Technical">
+		<meta property="article:tag" content="C&#43;&#43;">
+		<meta property="article:tag" content="Real-Time">
+		<meta property="article:tag" content="Vulkan">
+		<meta property="article:tag" content="Slang">
+		<meta property="article:tag" content="PBR">
+		<meta property="og:image" content="//localhost:1313/technical/vulkan-rt-pathtracer/featured.jpg">
+
+  
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="//localhost:1313/technical/vulkan-rt-pathtracer/featured.jpg">
+	<meta name="twitter:title" content="Mangetsu Engine: Vulkan Hardware Ray Traced Pathtracer">
+	<meta name="twitter:description" content="A hardware-accelerated Monte Carlo pathtracer in C&#43;&#43;, Vulkan RT, and Slang, with glTF scene loading, a physically-based BSDF with refraction, depth of field, normal mapping, and image-based lighting">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.c5cc6370759cca8a6cd59c13f409391f676622ddc060c8a1c79a2eda5acdaad70d17f84544d784a0bf85996db2a2376113bc1ad1ef255ab6eb6537d31582b76f.css"
+    integrity="sha512-xcxjcHWcyops1ZwT9Ak5H2dmIt3AYMihx5ou2lrNqtcNF/hFRNeEoL&#43;FmW2yojdhE7wa0e8lWrbrZTfTFYK3bw==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.9cb6224f235edb926fa00f3321b3d3aea2ba20433256950383571cfc9f470d94912597f4c2cd0f7acd755bcbd581534035abc246477dda72a00c9d02efb508c2.js"
+    integrity="sha512-nLYiTyNe25JvoA8zIbPTrqK6IEMyVpUDg1cc/J9HDZSRJZf0ws0Pes11W8vVgVNANavCRkd92nKgDJ0C77UIwg=="></script>
+  
+
+
+  
+  
+  
+  
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.b4b722fcb5d42f34f52b30a92f3521b69f403ca9d96d0d6179eb537cb870f5d83fdf1fe836688d95d5c99fefbda4170487711006e56051fa67ea00da10521721.js" integrity="sha512-tLci/LXULzT1KzCpLzUhtp9APKnZbQ1heetTfLhw9dg/3x/oNmiNldXJn&#43;&#43;9pBcEh3EQBuVgUfpn6gDaEFIXIQ=="></script>
+  
+  
+  
+  
+
+  
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.6f9e49850a316ceb9908ad4b153b391e55b41bbcee8b408b52410567544eeebe6776aa57d770d75952dc164e6071068a848bdc5cb48c4dbaef04d65b3f442667.js"
+      integrity="sha512-b55JhQoxbOuZCK1LFTs5HlW0G7zui0CLUkEFZ1RO7r5ndqpX13DXWVLcFk5gcQaKhIvcXLSMTbrvBNZbP0QmZw=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
+  
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/lib/katex/katex.min.3b766edf62ae67d6b815319e8bf145450c235fc5a8e653bead83437ac310101f8fb45d37bc8c45d53908c35fd1afdb589f52fb149c641dfcad9eb314e913053a.css"
+    integrity="sha512-O3Zu32KuZ9a4FTGei/FFRQwjX8Wo5lO&#43;rYNDesMQEB&#43;PtF03vIxF1TkIw1/Rr9tYn1L7FJxkHfytnrMU6RMFOg==">
+  
+  
+  
+  <script
+    defer
+    type="text/javascript"
+    src="/js/katex.bundle.9d4d62386e24dc7a402f488919c9fcceb72cf5b580597d2abb0e344dad01c5140fccaab991d73b7ab10163c64e1a33c2ba601cec9cb0bd0aa0bfec4aa05ecaa6.js"
+    integrity="sha512-nU1iOG4k3HpAL0iJGcn8zrcs9bWAWX0quw40Ta0BxRQPzKq5kdc7erEBY8ZOGjPCumAc7JywvQqgv&#43;xKoF7Kpg=="
+    id="katex-render"></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Technical",
+    "name": "Mangetsu Engine: Vulkan Hardware Ray Traced Pathtracer",
+    "headline": "Mangetsu Engine: Vulkan Hardware Ray Traced Pathtracer",
+    
+    "inLanguage": "en",
+    "url" : "//localhost:1313/technical/vulkan-rt-pathtracer/",
+    "author" : {
+      "@type": "Person",
+      "name": "T Fong",
+      "image": "https://avatars.githubusercontent.com/u/145229224?s=400\u0026u=84aa2f823979607dc989b017fe3e7cdc98074daa\u0026v=4",
+      "sameAs": ["https://github.com/SomeInternet", "https://instagram.com/tsukifong", "https://linkedin.com/in/tzfong"]
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-10-09T00:00:00\u002b00:00",
+    "datePublished": "2026-10-09T00:00:00\u002b00:00",
+    
+    "dateModified": "2026-10-09T00:00:00\u002b00:00",
+    
+    "keywords": ["technical","C++","real-time","Vulkan","Slang","PBR","Global Illumination"],
+    
+    "mainEntityOfPage": "//localhost:1313/technical/vulkan-rt-pathtracer/",
+    "wordCount": "2043"
+  }]
+  </script>
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral bf-scrollbar">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content">
+        <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
+        Skip to main content
+      </a>
+    </div>
+    <header>
+      
+      
+        <div class="min-h-[148px]"></div>
+<div class="fixed top-0 inset-x-0 z-100">
+  <div
+    id="menu-blur"
+    class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl bg-neutral/25 dark:bg-neutral-800/25"></div>
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
+    <div class="main-menu flex items-center w-full gap-2 p-1 pl-0">
+  
+    
+    
+      <div>
+        <a href="/" class="flex">
+          <span class="sr-only">T Fong</span>
+          
+            <img
+              src="/img/logo.png"
+              width="1024"
+              height="1024"
+              class="logo max-h-20 max-w-20 object-scale-down object-left nozoom"
+              alt="">
+          
+        </a>
+      </div>
+    
+  
+  
+    <a href="/" class="text-base font-medium truncate min-w-0 shrink">
+      T Fong
+    </a>
+  
+  <div class="flex items-center ms-auto">
+    <div class="hidden md:flex">
+      <nav class="flex items-center gap-x-5 h-12">
+  
+    
+      
+  
+    <a
+      href="/resume/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="Resume"
+      title="Resume">
+      
+      
+        <span class="text-base font-medium break-normal">
+          Resume
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/technical/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="Technical"
+      title="Technical">
+      
+      
+        <span class="text-base font-medium break-normal">
+          Technical
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/creative/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="Creative"
+      title="Creative">
+      
+      
+        <span class="text-base font-medium break-normal">
+          Creative
+        </span>
+      
+    </a>
+  
+
+    
+  
+
+  
+
+  
+
+  
+
+  
+    <div class="flex items-center">
+      <button
+        id="appearance-switcher"
+        aria-label="Switch to dark appearance"
+        type="button"
+        class="text-base bf-icon-color-hover"
+        title="Switch to dark appearance">
+        <div class="flex items-center justify-center dark:hidden">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+        </div>
+        <div class="items-center justify-center hidden dark:flex">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+        </div>
+      </button>
+    </div>
+  
+</nav>
+
+
+
+    </div>
+    <div class="flex md:hidden">
+      <div class="flex items-center h-14 gap-4">
+  
+
+  
+    <button
+      id="appearance-switcher-mobile"
+      type="button"
+      aria-label="Switch to dark appearance"
+      title="Switch to dark appearance"
+      class="flex items-center justify-center text-neutral-900 hover:text-primary-600 dark:text-neutral-200 dark:hover:text-primary-400">
+      <div class="dark:hidden">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+      </div>
+      <div class="hidden dark:block">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+      </div>
+    </button>
+  
+
+  
+    <input type="checkbox" id="mobile-menu-toggle" autocomplete="off" class="hidden peer">
+    <label for="mobile-menu-toggle" class="flex items-center justify-center cursor-pointer bf-icon-color-hover">
+      <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+    </label>
+
+    <div
+      role="dialog"
+      aria-modal="true"
+      style="scrollbar-gutter: stable;"
+      class="fixed inset-0 z-50 invisible overflow-y-auto px-6 py-20 opacity-0 transition-[opacity,visibility] duration-300 peer-checked:visible peer-checked:opacity-100 bg-neutral-50/97 dark:bg-neutral-900/99
+      bf-scrollbar">
+      <label
+        for="mobile-menu-toggle"
+        class="fixed end-8 top-5 flex items-center justify-center z-50 h-12 w-12 cursor-pointer select-none rounded-full bf-icon-color-hover border bf-border-color bf-border-color-hover bg-neutral-50 dark:bg-neutral-900">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </label>
+      <nav class="mx-auto max-w-md space-y-6">
+        
+  
+    
+    <div class="px-2">
+      <a
+        href="/resume/"
+        aria-label="Resume"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+        <span title="Resume" class="text-2xl font-bold tracking-tight">
+          Resume
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/technical/"
+        aria-label="Technical"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+        <span title="Technical" class="text-2xl font-bold tracking-tight">
+          Technical
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/creative/"
+        aria-label="Creative"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+        <span title="Creative" class="text-2xl font-bold tracking-tight">
+          Creative
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+
+        
+  
+    <div class="flex flex-wrap gap-4 mt-8 pt-8 border-t bf-border-color">
+      
+        <a
+          href="https://www.linkedin.com/in/tzfong/"
+          aria-label="tzfong"
+          class="inline-flex items-center gap-2 px-2 py-2 bf-icon-color-hover rounded-full text-sm">
+          
+            <span class="flex items-center justify-center h-4 w-4">
+              <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+</span>
+            </span>
+          
+          <span title="">tzfong</span>
+        </a>
+      
+        <a
+          href="https://github.com/SomeInternet"
+          aria-label="SomeInternet"
+          class="inline-flex items-center gap-2 px-2 py-2 bf-icon-color-hover rounded-full text-sm">
+          
+            <span class="flex items-center justify-center h-4 w-4">
+              <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span>
+            </span>
+          
+          <span title="">SomeInternet</span>
+        </a>
+      
+    </div>
+  
+
+        
+  
+
+      </nav>
+    </div>
+  
+</div>
+
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+  <nav id="main-menu" aria-label="Main menu">
+    <div
+      class="main-menu flex pb-3 flex-col items-end justify-between md:justify-start space-x-3 
+        -mt-[15px]
+      ">
+      <div class="hidden md:flex items-center space-x-5">
+        
+          <a
+            href="https://www.linkedin.com/in/tzfong/"
+            
+              target="_blank"
+            
+            class="flex items-center bf-icon-color-hover">
+            
+              <span class="mr-1">
+                <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+</span>
+              </span>
+            
+            <span class="text-xs font-light" title="">
+              tzfong
+            </span>
+          </a>
+        
+          <a
+            href="https://github.com/SomeInternet"
+            
+              target="_blank"
+            
+            class="flex items-center bf-icon-color-hover">
+            
+              <span class="mr-1">
+                <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span>
+              </span>
+            
+            <span class="text-xs font-light" title="">
+              SomeInternet
+            </span>
+          </a>
+        
+      </div>
+    </div>
+  </nav>
+
+
+
+
+  </div>
+</div>
+
+
+<script
+  type="text/javascript"
+  src="/js/background-blur.min.605b3b942818f0ab5a717ae446135ec46b8ee5a2ad12ae56fb90dc2a76ce30c388f9fec8bcc18db15bd47e3fa8a09d779fa12aa9c184cf614a315bc72c6c163d.js"
+  integrity="sha512-YFs7lCgY8KtacXrkRhNexGuO5aKtEq5W&#43;5DcKnbOMMOI&#43;f7IvMGNsVvUfj&#43;ooJ13n6EqqcGEz2FKMVvHLGwWPQ=="
+  data-blur-id="menu-blur"></script>
+
+      
+    </header>
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+  
+  
+  
+  <article>
+    
+    
+      
+      
+      
+      
+        
+
+
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+  
+
+
+
+
+
+    <div id="hero" class="h-[150px] md:h-[200px]"></div>
+  
+  <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
+    
+    
+    
+    <img
+      id="background-image"
+      src="/technical/vulkan-rt-pathtracer/featured_hu_bb1a192f7efea39b.jpg"
+      role="presentation"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+       />
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
+    <div
+      class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal"></div>
+  </div>
+
+  
+    <div
+      id="background-blur"
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/background-blur.min.605b3b942818f0ab5a717ae446135ec46b8ee5a2ad12ae56fb90dc2a76ce30c388f9fec8bcc18db15bd47e3fa8a09d779fa12aa9c184cf614a315bc72c6c163d.js"
+      integrity="sha512-YFs7lCgY8KtacXrkRhNexGuO5aKtEq5W&#43;5DcKnbOMMOI&#43;f7IvMGNsVvUfj&#43;ooJ13n6EqqcGEz2FKMVvHLGwWPQ=="
+      data-blur-id="background-blur"
+      data-image-id="background-image"
+      data-image-url="/technical/vulkan-rt-pathtracer/featured_hu_bb1a192f7efea39b.jpg"></script>
+  
+      
+    
+
+    
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        Mangetsu Engine: Vulkan Hardware Ray Traced Pathtracer
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2026-10-09T00:00:00&#43;00:00">9 October 2026</time><span class="px-2 text-primary-500">&middot;</span><span>2043 words</span>
+    
+
+    
+    
+  </div>
+
+  
+
+  
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+      
+        
+      
+        
+          
+            
+              
+                <a class="relative mt-[0.5rem] me-2" href="/tags/technical/">
+                  <span class="flex cursor-pointer">
+  
+  
+  
+  
+    <span
+      class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+  
+    Technical
+  </span>
+</span>
+
+                </a>
+              
+            
+          
+            
+              
+                <a class="relative mt-[0.5rem] me-2" href="/tags/c&#43;&#43;/">
+                  <span class="flex cursor-pointer">
+  
+  
+  
+  
+    <span
+      class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+  
+    C&#43;&#43;
+  </span>
+</span>
+
+                </a>
+              
+            
+          
+            
+              
+                <a class="relative mt-[0.5rem] me-2" href="/tags/real-time/">
+                  <span class="flex cursor-pointer">
+  
+  
+  
+  
+    <span
+      class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+  
+    Real-Time
+  </span>
+</span>
+
+                </a>
+              
+            
+          
+            
+              
+                <a class="relative mt-[0.5rem] me-2" href="/tags/vulkan/">
+                  <span class="flex cursor-pointer">
+  
+  
+  
+  
+    <span
+      class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+  
+    Vulkan
+  </span>
+</span>
+
+                </a>
+              
+            
+          
+            
+              
+                <a class="relative mt-[0.5rem] me-2" href="/tags/slang/">
+                  <span class="flex cursor-pointer">
+  
+  
+  
+  
+    <span
+      class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+  
+    Slang
+  </span>
+</span>
+
+                </a>
+              
+            
+          
+            
+              
+                <a class="relative mt-[0.5rem] me-2" href="/tags/pbr/">
+                  <span class="flex cursor-pointer">
+  
+  
+  
+  
+    <span
+      class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+  
+    PBR
+  </span>
+</span>
+
+                </a>
+              
+            
+          
+            
+              
+                <a class="relative mt-[0.5rem] me-2" href="/tags/global-illumination/">
+                  <span class="flex cursor-pointer">
+  
+  
+  
+  
+    <span
+      class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+  
+    Global Illumination
+  </span>
+</span>
+
+                </a>
+              
+            
+          
+        
+      
+    </div>
+  
+
+
+      </div>
+      
+        
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    
+  
+
+  
+
+      
+    </header>
+
+    
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+      
+      
+      
+      
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+          <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
+            <details
+  open
+  id="TOCView"
+  class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#hardware-ray-tracing-in-vulkan">Hardware Ray Tracing in Vulkan</a></li>
+    <li><a href="#gltf-loading">glTF Loading</a></li>
+    <li><a href="#physically-based-materials">Physically-based Materials</a></li>
+    <li><a href="#dielectric-refraction">Dielectric Refraction</a></li>
+    <li><a href="#thin-lens-camera-depth-of-field">Thin Lens Camera (Depth of Field)</a></li>
+    <li><a href="#normal-mapping">Normal Mapping</a></li>
+    <li><a href="#image-based-lighting">Image-Based Lighting</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg -ms-5 ps-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#hardware-ray-tracing-in-vulkan">Hardware Ray Tracing in Vulkan</a></li>
+    <li><a href="#gltf-loading">glTF Loading</a></li>
+    <li><a href="#physically-based-materials">Physically-based Materials</a></li>
+    <li><a href="#dielectric-refraction">Dielectric Refraction</a></li>
+    <li><a href="#thin-lens-camera-depth-of-field">Thin Lens Camera (Depth of Field)</a></li>
+    <li><a href="#normal-mapping">Normal Mapping</a></li>
+    <li><a href="#image-based-lighting">Image-Based Lighting</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+
+
+          </div>
+        </div>
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+        <div class="article-content max-w-prose mb-20">
+          <p>
+
+<em><strong>Check out the repository for this project <a href="https://github.com/SomeInternet/Mangetsu-Engine"  target="_blank" rel="noreferrer">here</a>!</strong></em></p>
+
+<h1 class="relative group">About
+    <div id="about" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#about" aria-label="Anchor">#</a>
+    </span>
+    
+</h1>
+<p>A pathtracer graphics engine written in C++, Vulkan RT, and Slang. Inspired by my previous pathtracer graphics engine project, <a href="/technical/vulkan-cuda-pathtracer/" >Tsuki Engine</a>, that implemented software pathtracing with Vulkan-CUDA interop.
+<figure><img
+    class="my-0 rounded-md"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="auto"
+    alt="Bistro Render"
+    width="1920"
+    height="1057"
+    src="/technical/vulkan-rt-pathtracer/images/main_render_hu_c25f41e8b12dd679.jpg"
+    srcset="/technical/vulkan-rt-pathtracer/images/main_render_hu_c25f41e8b12dd679.jpg 800w, /technical/vulkan-rt-pathtracer/images/main_render_hu_ea020525f44c7ae8.jpg 1280w"
+    sizes="(min-width: 768px) 50vw, 65vw"
+    data-zoom-src="/technical/vulkan-rt-pathtracer/images/main_render.jpg"></figure>
+
+<em>A render of the <a href="https://developer.nvidia.com/orca/amazon-lumberyard-bistro"  target="_blank" rel="noreferrer">Amazon Lumberyard Bistro</a> scene, part of which I took into Blender and re-exported as a glb scene. You can access the glb version <a href="https://drive.google.com/file/d/1IUR4zbtgZiPxAZCEbUySQ_30De5AmyWE/view?usp=sharing"  target="_blank" rel="noreferrer">here</a>.</em></p>
+
+<h1 class="relative group">A Crash Course in Pathtracing
+    <div id="a-crash-course-in-pathtracing" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#a-crash-course-in-pathtracing" aria-label="Anchor">#</a>
+    </span>
+    
+</h1>
+<p>A quick motivation on pathtracing! It&rsquo;s an incredibly cool topic that merges art and low-level computer science. It also touches on a lot of math and physics that I&rsquo;m not too well versed in, but find fascinating at a higher level.<br>
+It might be a strange way to view the world, but if for every point in the world you could see, you knew exactly how much light was reaching it from all angles, and what proportion of that light was sent towards you, you&rsquo;d be able to perfectly recreate the lighting of the scene. You can imagine this as integrating over the hemisphere (or sphere) the following equation, referred to as the <strong>rendering equation</strong> or <strong>light transport equation</strong>:</p>
+<p><figure><img
+    class="my-0 rounded-md"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="auto"
+    alt="Light Transport Equation"
+    width="825"
+    height="121"
+    src="/technical/vulkan-rt-pathtracer/images/light_transport_hu_6b90e7ef8c941e3f.png"
+    srcset="/technical/vulkan-rt-pathtracer/images/light_transport_hu_6b90e7ef8c941e3f.png 800w, /technical/vulkan-rt-pathtracer/images/light_transport.png 1280w"
+    sizes="(min-width: 768px) 50vw, 65vw"
+    data-zoom-src="/technical/vulkan-rt-pathtracer/images/light_transport.png"></figure>
+
+<em>Credit: <a href="https://pbr-book.org/3ed-2018/Light_Transport_I_Surface_Reflection/The_Light_Transport_Equation"  target="_blank" rel="noreferrer">https://pbr-book.org/3ed-2018/Light_Transport_I_Surface_Reflection/The_Light_Transport_Equation</a></em></p>
+<p>It looks mean, but the principle is quite simple: the light sent from a point \(p\) in a direction \(\omega_o\) (\(L_o(p, \omega_o)\)) is the light emitted from that point in that direction \(L_e(p, \omega_o)\) plus, for all directions \(\omega_i\), the light received at point \(p\) from \(\omega_i\), attenuated by the amount of light sent from \(\omega_i\) to \(\omega_o\) by point \(p\). \(|cos\theta_i|\), Lambert&rsquo;s Law, expresses the way light is spread over a larger area when it hits at a glancing angle, resulting in less illumination.</p>
+<p>Unfortunately, this equation mostly isn&rsquo;t able to be analytically computed, so we approximate it using Monte Carlo estimation (hence Monte Carlo pathtracer). The idea is that if we take a bunch of samples, weighting the samples by the relative likelihood they were taken, then as we take more samples, we converge to the true integral. This is why the rendered image starts off noisy and begins to smooth out and look realistic.</p>
+<p>We take these samples by tracing the paths light takes (hence the name). Doing this from light source to camera would be wasteful, as the camera is infinitely small, so we do it in reverse, from camera to light source. The way we scatter the rays off of surfaces is determined by the material properties of the surface, and we attenuate any light we receive at the terminus of the path by the proportion of red, green, and blue light the material would scatter from our inbound direction (\(\omega_i\)) to our outbound direction (\(\omega_o\)).</p>
+<p>We terminate our path after either hitting a light source, hitting nothing, or after hitting a maximum depth, which is tunable.</p>
+
+<h1 class="relative group">Current Features
+    <div id="current-features" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#current-features" aria-label="Anchor">#</a>
+    </span>
+    
+</h1>
+<p><em>As of October 6, 2026</em></p>
+
+<h2 class="relative group">Hardware Ray Tracing in Vulkan
+    <div id="hardware-ray-tracing-in-vulkan" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#hardware-ray-tracing-in-vulkan" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>Vulkan provides ray tracing extensions that leverage specialized device hardware to accelerate ray-scene intersections, including acceleration structure construction and traversal.</p>
+<p>I&rsquo;ve also enabled shader execution reordering, which improves performance on supported hardware by sorting shader execution, reducing thread divergence.</p>
+<p>Vulkan breaks the ray tracing pipeline into the invocation of several shaders, which I&rsquo;ve put in <code>pathtracer.slang</code>. The <code>raygeneration</code> shader computes initial ray cast from the dispatch, then iterates through the loop, calling <code>TraceRay()</code> to traverse the acceleration structure, then <code>ReorderThread()</code> to reduce divergence with shader execution reordering (on supported hardware, otherwise it should be a no-op), and then <code>Invoke()</code> to invoke the <code>closesthit</code> shader. It handles updating the attenuation and outputting the final radiance.</p>
+<p>Most of the work for shading is done in the closest hit, where I pick a lobe, sample a new direction, compute the BSDF, and return that information to the ray generation shader (more on this later).</p>
+<p>The <code>miss</code> shader is called when no object in the scene was hit.</p>
+
+<h2 class="relative group">glTF Loading
+    <div id="gltf-loading" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#gltf-loading" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>In <code>loader.h</code>, <code>loader.cpp</code>, I use the tinygltf library to load glTF files, a powerful format that can represent entire scenes with meshes, primitives, and instancing, along with the materials and textures to render them.</p>
+
+<h2 class="relative group">Physically-based Materials
+    <div id="physically-based-materials" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#physically-based-materials" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>I support the <code>KHR_materials_emissive_strength</code>, <code>KHR_materials_ior</code>, and <code>KHR_materials_transmission</code> extensions. My resulting Cook-Torrance BSDF implementation looks like this:
+<figure><img
+    class="my-0 rounded-md"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="auto"
+    alt="BSDF Diagram"
+    width="916"
+    height="440"
+    src="/technical/vulkan-rt-pathtracer/images/bsdf_diagram_hu_b23b7f3f2f787f35.png"
+    srcset="/technical/vulkan-rt-pathtracer/images/bsdf_diagram_hu_b23b7f3f2f787f35.png 800w, /technical/vulkan-rt-pathtracer/images/bsdf_diagram.png 1280w"
+    sizes="(min-width: 768px) 50vw, 65vw"
+    data-zoom-src="/technical/vulkan-rt-pathtracer/images/bsdf_diagram.png"></figure>
+
+<em>Credit: <a href="https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_transmission/README.md"  target="_blank" rel="noreferrer">https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_transmission/README.md</a></em></p>
+<p>We break it down into several lobes. We have a metallic lobe following the Torrance-Sparrow microfacet model, which imagines the macrosurface being comprised of a bunch of perfectly mirror-like microscopic surfaces, with their own micronormals. The distribution of micronormals about the macronormal (i.e. how much they vary) depends upon the roughness of the material, where 0 is very mirror-like and 1 looks more diffuse.</p>
+<p>Metals reflect according to the material&rsquo;s albedo, where plastic is imagined as having a gray-ish sheen atop a diffuse underlayer, where we get more reflection as our view angle becomes more grazing.</p>
+<p>With a transmissive surface, the underlayer could be transmissive. We can therefore imagine glass as having <code>metallic = 0.f</code>, <code>transmissiveness = 1.f</code>.</p>
+<p>I sample this by picking a random value between 0 and 1, then combining that with the material parameters to choose a lobe to sample from. Given I weight the samples in accordance to the rate at which I sample them, you can imagine that by averaging this over a large number of samples, I converge to the correct result without bias.</p>
+<p>Here&rsquo;s a render showcasing the Cook-Torrance BSDF in action. You can get more diffuse-looking walls, a relatively smooth mirrorlike metallic wall, a rough metallic ball, a glossy plastic ball, and a refractive somewhat rough glass sphere all in one:
+<figure><img
+    class="my-0 rounded-md"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="auto"
+    alt="Cook Torrance BSDF"
+    width="2559"
+    height="1565"
+    src="/technical/vulkan-rt-pathtracer/images/cook_torrance_bsdf_hu_1cf460e81f7f3e8b.jpg"
+    srcset="/technical/vulkan-rt-pathtracer/images/cook_torrance_bsdf_hu_1cf460e81f7f3e8b.jpg 800w, /technical/vulkan-rt-pathtracer/images/cook_torrance_bsdf_hu_4de0e771b4b263ca.jpg 1280w"
+    sizes="(min-width: 768px) 50vw, 65vw"
+    data-zoom-src="/technical/vulkan-rt-pathtracer/images/cook_torrance_bsdf.jpg"></figure>
+
+<em>A render of the <code>cornellbox_transmission.glb</code> scene.</em></p>
+
+<h2 class="relative group">Dielectric Refraction
+    <div id="dielectric-refraction" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#dielectric-refraction" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>As mentioned earlier, I support varying indices of refraction through the glTF extension <code>KHR_materials_ior</code> (though my implementation currently breaks at an IoR of exactly 1). By Snell&rsquo;s Law, the index of refraction influences how the transmitted ray&rsquo;s direction is impacted by the normal:</p>
+<p>\(\frac{sin(\theta_1)}{sin(\theta_2)} = \frac{n_2}{n_1}\)<br>
+where \(\theta_1, \theta_2\) are the angles of the incoming and outgoing ray segments from the normal, and \(n_1, n_2\) are the indices of refraction of the incoming and outgoing medium.</p>
+<p>I&rsquo;ll note that my refractions aren&rsquo;t physically accurate: I assume an infinitely thin surface and treat all transmission as from air to glass. glTF has an extension for more realistic refractions, <code>KHR_materials_volume</code>, which I may support in the future.</p>
+<p>Here&rsquo;s a render showcasing the effects of differing IoRs, where the spheres have, from left to right, IoRs of <code>1.001f, 1.25f, 1.5f, 1.75f, 2.f</code>.
+<figure><img
+    class="my-0 rounded-md"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="auto"
+    alt="Index of Refraction"
+    width="2559"
+    height="1565"
+    src="/technical/vulkan-rt-pathtracer/images/ior_hu_1c36a94542b8110b.jpg"
+    srcset="/technical/vulkan-rt-pathtracer/images/ior_hu_1c36a94542b8110b.jpg 800w, /technical/vulkan-rt-pathtracer/images/ior_hu_9d4d3cb0d0aab02b.jpg 1280w"
+    sizes="(min-width: 768px) 50vw, 65vw"
+    data-zoom-src="/technical/vulkan-rt-pathtracer/images/ior.jpg"></figure>
+
+<em>You can inspect this scene as <code>ior.glb</code>.</em></p>
+
+<h2 class="relative group">Thin Lens Camera (Depth of Field)
+    <div id="thin-lens-camera-depth-of-field" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#thin-lens-camera-depth-of-field" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>When you typically implement your first camera, you get a pinhole camera, in that the light lands on the &ldquo;film&rdquo; as if it were passing through an infinitely small pinhole. Everything is in perfect focus because all light landing at some point on the film must come from precisely one direction to make it through the pinhole. That jitter for anti-aliasing represents the fact that the pixel contains a small breadth of space, so light from slightly different directions can land within a single pixel.</p>
+<p>To achieve depth of field, we introduce <code>lensRadius</code> and <code>focusDist</code>. <code>lensRadius</code> is the width of the hole that light comes through, and <code>focusDist</code> is the distance of the focus plane from the camera, where everything lying on the focus plane is in focus. We ensure that the focus plane is in focus by aiming our ray at the equivalent point on the focus plane that we would originally be aiming at, from a randomly selected point on the lens of the camera.</p>
+
+<h2 class="relative group">Normal Mapping
+    <div id="normal-mapping" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#normal-mapping" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>Normal mapping achieves the appearance of greater detail in geometry by perturbing the normal of the surface. Each pixel represents the perturbed normal in the tangent space of the surface, where \(n = normalize(color * 2 - 1)\). So for a light hitting a rugged wall, you can capture some of the effects of certain pieces of the wall facing away from the light and therefore not receiving as much illumination by having the normal map perturb the normals of certain segments of the wall.</p>
+<p>Given the \(TBN\) (tangent, bitangent, normal) matrix representing the tangent space of the surface and the perturbed normal, we compute a new \(TBN\) matrix in <code>applyNormalMap</code>.</p>
+<p>These rugged patches of the surface do not cast shadows like they would if they were real geometry, but they look good enough for small details.</p>
+<p>Here&rsquo;s a cool gif that demonstrates the limitations of normal maps:
+<figure><img
+    class="my-0 rounded-md"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="auto"
+    alt="Normal Map Limitations"
+    width="440"
+    height="220"
+    src="/technical/vulkan-rt-pathtracer/images/normal_map_issues.gif"
+    srcset="/technical/vulkan-rt-pathtracer/images/normal_map_issues.gif 800w, /technical/vulkan-rt-pathtracer/images/normal_map_issues.gif 1280w"
+    sizes="(min-width: 768px) 50vw, 65vw"
+    data-zoom-src="/technical/vulkan-rt-pathtracer/images/normal_map_issues.gif"></figure>
+<br>
+<em>Credit: <a href="https://commons.wikimedia.org/wiki/File:Rendering_with_normal_mapping.gif"  target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Rendering_with_normal_mapping.gif</a></em></p>
+<p>Having implemented normal mapping, here&rsquo;s a demonstration of them in action:
+<figure><img
+    class="my-0 rounded-md"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="auto"
+    alt="Normal Mapping"
+    width="2448"
+    height="1315"
+    src="/technical/vulkan-rt-pathtracer/images/normal_map_hu_d0af9684364b3a21.jpg"
+    srcset="/technical/vulkan-rt-pathtracer/images/normal_map_hu_d0af9684364b3a21.jpg 800w, /technical/vulkan-rt-pathtracer/images/normal_map_hu_ee2f16d248c5deb6.jpg 1280w"
+    sizes="(min-width: 768px) 50vw, 65vw"
+    data-zoom-src="/technical/vulkan-rt-pathtracer/images/normal_map.jpg"></figure>
+
+<em>You can inspect this scene as <code>cornellbox_normals.glb</code>.</em></p>
+<p>It still captures a lot of the details that make the ground look believably textured, such as capturing the green bounce light from the wall.</p>
+
+<h2 class="relative group">Image-Based Lighting
+    <div id="image-based-lighting" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#image-based-lighting" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>Ordinarily, a ray that doesn&rsquo;t intersect a scene would return a flat emissive color. To achieve more visually interesting results like a sky, and quickly, we could use an image called an environment map and sample from it instead. We use HDR images because they represent radiance values beyond the \([0, 1]\) range of ordinary colors, making them ideal for environments that cast light.</p>
+<p>To sample from the image, we wrap the image to a sphere. The u coordinate we sample is influenced by the xz direction of our ray, and the v coordinate we sample is influenced by the y direction of our ray.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">float2 uv = float2(atan2(WorldRayDirection().z, WorldRayDirection().x), asin(WorldRayDirection().y));
+</span></span><span class="line"><span class="cl">uv *= float2(1.f / (2.f * PI), -1.f / PI); //v is flipped
+</span></span><span class="line"><span class="cl">uv += float2(.5f);</span></span></code></pre></div></div>
+<p>This makes scenes with dimmer lights much more visually interesting, though without light sampling/importance sampling techniques can lead to high variance/fireflies if there is a particularly small, bright part of the image. In fact, the renders I&rsquo;ve shown so far take a while to converge because of my choice of HDR. I&rsquo;ve begun implementing MIS with alias tables to help resolve this.</p>
+
+<h1 class="relative group">Benchmarks
+    <div id="benchmarks" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#benchmarks" aria-label="Anchor">#</a>
+    </span>
+    
+</h1>
+<p><em>Benchmarks were taken on my Windows 11 laptop, with an RTX 5070 Mobile, 32GB RAM(5600MT/s), and an Intel Ultra 9 275HX (2.6GHz).</em></p>
+<p>The performance of the pathtracer is view-dependent, as it affects what parts of the acceleration structure the rays have to traverse. To lead with the big, impressive first stat, at 1920*1080p, averaging over 1000 frames (after the first 10 seconds) with the bistro scene at 2,829,226 triangles, I get an average of 20.321 ms/frame (49.2 frames per second), with a minimum of 19.6 ms/frame, median of 20.423 ms/frame, and maximum of 21.104 ms/frame.</p>
+<p>I wish I could show the direct performance difference for what would normally be big performance optimizations like acceleration structures, but unfortunately (or fortunately, I guess) the hardware raytracing API builds the acceleration structure.</p>
+<p>Digging a little deeper with NSight Graphics though, profiling a run in my <code>cornellbox_transmission.glb</code> scene, most of the time seems to be spent on the ray tracing traversal.</p>
+<figure><img
+    class="my-0 rounded-md"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="auto"
+    alt="NSight Flame Graph"
+    width="667"
+    height="190"
+    src="/technical/vulkan-rt-pathtracer/images/nsight_flame_graph.png"
+    srcset="/technical/vulkan-rt-pathtracer/images/nsight_flame_graph.png 800w, /technical/vulkan-rt-pathtracer/images/nsight_flame_graph.png 1280w"
+    sizes="(min-width: 768px) 50vw, 65vw"
+    data-zoom-src="/technical/vulkan-rt-pathtracer/images/nsight_flame_graph.png"></figure>
+<p>Active threads per warp is pretty high, at 27.5, but unallocated warps in active SMs is also high, at an average of 24.6 warps (51.2% occupancy). I believe that high register usage per thread could be a cause of this.</p>
+
+<h1 class="relative group">Future Plans
+    <div id="future-plans" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#future-plans" aria-label="Anchor">#</a>
+    </span>
+    
+</h1>
+<p>I&rsquo;m still working on the engine! Some features I&rsquo;m working on next:</p>
+<ul>
+<li>Multiple importance sampling with alias tables for environment and light sampling</li>
+<li>Reducing register usage per thread to improve occupancy</li>
+<li>Volumetric refraction via <code>KHR_materials_volume</code></li>
+</ul>
+
+<h1 class="relative group">Third-Party Libraries
+    <div id="third-party-libraries" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#third-party-libraries" aria-label="Anchor">#</a>
+    </span>
+    
+</h1>
+<p><strong>VkBootstrap</strong><br>
+Helper classes and functions to reduce the boilerplate of picking a Vulkan device and setting up Vulkan objects.</p>
+<p><strong>SDL</strong><br>
+For windowing, setting up a surface for Vulkan to present to.</p>
+<p><strong>ImGUI</strong><br>
+For the, erm, GUI.</p>
+<p><strong>TinyglTF</strong><br>
+For glTF loading.</p>
+<p><strong>VMA</strong><br>
+For managing memory allocations.</p>
+<p><strong>STB</strong><br>
+For image loading.</p>
+
+<h1 class="relative group">Attributions
+    <div id="attributions" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#attributions" aria-label="Anchor">#</a>
+    </span>
+    
+</h1>
+<p><strong>VkGuide</strong><br>
+Provided resources on engine architecture and setup that I took inspiration from.</p>
+<p><strong>Vulkan Docs Tutorial</strong><br>
+Provided resources and sample code for writing a modern Vulkan application, engine architecture, glTF loading, and raytracing that were extremely helpful.</p>
+<p><strong>University of Pennsylvania, CIS 4610/5610 Curriculum</strong><br>
+Provided some resources on pathtracing I used.</p>
+<p><strong>Physically-Based Rendering Textbook, 4th Edition</strong><br>
+Used as reference for implementations of microfacet reflection and transmission.</p>
+<p><strong>Khronos Group glTF Specs</strong></p>
+<p><strong>NVIDIA Vulkan Hardware Raytracing Tutorial</strong></p>
+<p><strong>Claude</strong><br>
+I used Claude to set up the CMakeLists and dependencies, bounced a lot of my ideas off Claude in this project, and used as a resource to help me set up the Vulkan Raytracing API boilerplate and debug my code.</p>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+
+        
+
+      </div>
+    </section>
+
+    
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+
+      
+    </footer>
+  </article>
+
+        
+
+
+  
+
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-6 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
+  <a
+    href="#the-top"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top"
+    title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    
+    
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+          &copy;
+          2026
+          T Fong
+      </p>
+    
+
+    
+    
+  </div>
+  
+    <script>
+      mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+        margin: 24,
+        background: "rgba(0,0,0,0.5)",
+        scrollOffset: 0,
+      });
+    </script>
+  
+  
+  
+</footer>
+
+    </div>
+  </body>
+  
+</html>
